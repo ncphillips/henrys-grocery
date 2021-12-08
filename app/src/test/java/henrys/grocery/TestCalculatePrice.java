@@ -56,4 +56,22 @@ public class TestCalculatePrice {
 
         assertEquals(expectedPrice, price);
     }
+
+    @Test
+    public void addingMoreOfTheFirstProduct() {
+        Double expectedPrice = 5.0;
+        Product raisins = new Product("raisins", 1.0);
+        Product avacado = new Product("avacado", 1.0);
+        Store store = new Store();
+        Basket basket = new Basket();
+
+        basket.add(raisins);
+        basket.addMany(2, avacado);
+        basket.addMany(2, raisins);
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
+
+
 }
