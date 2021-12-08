@@ -38,4 +38,20 @@ public class TestCalculateSoupAndBreadComboDiscount {
 
         assertEquals(noDiscount, discountToPrice);
     }
+
+    @Test
+    public void fourSoupTwoBread() {
+        Double priceOfBread = 6.0;
+        Double expectedDiscountToPrice = 6.0;
+        Product soup = new Product("soup", 2.5);
+        Product bread = new Product("bread", priceOfBread);
+        Discount discount = new SoupAndBreadComboDiscount(soup, bread);
+        Basket basket = new Basket();
+
+        basket.addMany(4, soup);
+        basket.addMany(2, bread);
+        Double discountToPrice = discount.calculateTotalForBasket(basket);
+
+        assertEquals(expectedDiscountToPrice, discountToPrice);
+    }
 }

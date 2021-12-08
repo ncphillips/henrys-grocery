@@ -21,6 +21,9 @@ public class SoupAndBreadComboDiscount extends Discount {
             return bread.getPrice() / 2.0;
         }
 
-        return 0.0;
+        int maxDiscountApplications = countOfSoup / 2;
+        int numDiscountApplications = Math.min(maxDiscountApplications, countOfBread);
+
+        return numDiscountApplications * bread.getPrice() / 2.0;
     }
 }
