@@ -4,12 +4,19 @@ import henrys.grocery.Basket;
 import henrys.grocery.Product;
 
 public class PercentOffDiscount extends Discount {
-    public PercentOffDiscount(Double percentOff, Product banana) {
+    private final Product product;
+    private final Double percentOff;
+
+    public PercentOffDiscount(Double percentOff, Product product) {
+        this.product = product;
+        this.percentOff = percentOff;
     }
 
 
     @Override
     public Double calculateTotalForBasket(Basket basket) {
-        return 1.0;
+        double productCount = basket.getCountOfProduct(product).doubleValue();
+
+        return productCount * product.getPrice() * percentOff;
     }
 }

@@ -18,4 +18,8 @@ public class Basket {
     public ArrayList<Product> getItemList() {
         return products;
     }
+
+    public Long getCountOfProduct(Product product) {
+        return products.stream().filter(item -> item.getID().equals(product.getID())).count();
+    }
 }
