@@ -28,4 +28,17 @@ public class TestCalculatePrice {
 
         assertEquals(expectedPrice, price);
     }
+
+    @Test
+    public void multipleInstancesOfAProduct() {
+        Double expectedPrice = 4.5;
+        Product product = new Product("pear", 2.25);
+        Store store = new Store();
+        Basket basket = new Basket();
+        basket.addMany(2, product);
+
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
 }

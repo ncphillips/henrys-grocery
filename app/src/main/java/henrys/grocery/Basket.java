@@ -9,6 +9,12 @@ public class Basket {
         products.add(product);
     }
 
+    public void addMany(int count, Product product) {
+        for (int j = 0; j < count; j++) {
+            products.add(product);
+        }
+    }
+
     public ArrayList<Product> getItemList() {
         return products;
     }
