@@ -6,8 +6,8 @@ Here are some ideas for tests to write:
 
 Basic pricing
 - [x] Empty Cart
-- [ ] One product
-- [ ] Multiple instances of a product
+- [x] One product
+- [x] Multiple instances of a product
 - [ ] Multiple products
 - [ ] Multiple instances of multiple products
 
