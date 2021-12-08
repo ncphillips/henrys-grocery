@@ -1,5 +1,7 @@
 package henrys.grocery;
 
+import henrys.grocery.discounts.Discount;
+import henrys.grocery.discounts.PercentOffDiscount;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -73,5 +75,20 @@ public class TestCalculatePrice {
         assertEquals(expectedPrice, price);
     }
 
+    @Test
+    public void applyOneDiscount() {
+        Double initialPrice = 8.0;
+        Double percentOff = 0.25;
+        Double expectedPrice = 6.0;
+        Product peanutButter = new Product("peanut butter", initialPrice);
+        Discount discount = new PercentOffDiscount(percentOff, peanutButter);
+        Store store = new Store();
+        Basket basket = new Basket();
 
+        store.addDiscount(discount);
+        basket.add(peanutButter);
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
 }
