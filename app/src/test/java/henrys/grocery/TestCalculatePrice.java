@@ -35,8 +35,23 @@ public class TestCalculatePrice {
         Product product = new Product("pear", 2.25);
         Store store = new Store();
         Basket basket = new Basket();
-        basket.addMany(2, product);
 
+        basket.addMany(2, product);
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
+
+    @Test
+    public void multipleProducts() {
+        Double expectedPrice = 3.0;
+        Product banana = new Product("banana", 1.0);
+        Product grapefruit= new Product("grapefruit", 2.0);
+        Store store = new Store();
+        Basket basket = new Basket();
+
+        basket.add(banana);
+        basket.add(grapefruit);
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(expectedPrice, price);
