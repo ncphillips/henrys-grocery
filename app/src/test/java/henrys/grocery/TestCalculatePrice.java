@@ -91,4 +91,31 @@ public class TestCalculatePrice {
 
         assertEquals(expectedPrice, price);
     }
+
+    @Test
+    public void applyMultipleDiscounts() {
+        Double expectedPrice = 7.5 + 4.0;
+
+        Double initialRanchPrice = 10.0;
+        Double percentOffRanch = 0.25;
+        Product ranchDressing = new Product("ranch dressing", initialRanchPrice);
+        Discount ranchDiscount = new PercentOffDiscount(percentOffRanch, ranchDressing);
+
+        Double initialPicklesPrice = 5.0;
+        Double percentOffPickles = 0.20;
+        Product pickles = new Product("pickles", initialPicklesPrice);
+        Discount picklesDiscount = new PercentOffDiscount(percentOffPickles, pickles);
+
+        Store store = new Store();
+        store.addDiscount(picklesDiscount);
+        store.addDiscount(ranchDiscount);
+
+        Basket basket = new Basket();
+        basket.add(ranchDressing);
+        basket.add(pickles);
+
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
 }

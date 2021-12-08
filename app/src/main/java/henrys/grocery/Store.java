@@ -2,22 +2,20 @@ package henrys.grocery;
 
 import henrys.grocery.discounts.Discount;
 
+import java.util.ArrayList;
+
 public class Store {
-    Discount discount;
+    ArrayList<Discount> discounts = new ArrayList<>();
 
     public Double calculateBasketPrice(Basket basket) {
         Double subtotal = basket.getItemList().stream().map(Product::getPrice).reduce(0.0, Double::sum);
 
-        Double discountToPrice = 0.0;
-
-        if (this.discount != null) {
-            discountToPrice = discount.calculateTotalForBasket(basket);
-        }
+        Double discountToPrice = discounts.stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
 
         return subtotal - discountToPrice;
     }
 
     public void addDiscount(Discount discount) {
-        this.discount = discount;
+        this.discounts.add(discount);
     }
 }
