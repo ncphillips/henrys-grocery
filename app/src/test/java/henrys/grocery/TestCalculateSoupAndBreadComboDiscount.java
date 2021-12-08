@@ -13,13 +13,29 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Double expectedDiscountToPrice = priceOfBread / 2.0;
         Product soup = new Product("soup", 2.0);
         Product bread = new Product("bread", priceOfBread);
-        Discount discount = new SoupAndBreadComboDiscount();
+        Discount discount = new SoupAndBreadComboDiscount(soup, bread);
         Basket basket = new Basket();
+
         basket.addMany(2, soup);
         basket.add(bread);
-
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(expectedDiscountToPrice, discountToPrice);
+    }
+
+    @Test
+    public void oneSoupOneBread() {
+        Double priceOfBread = 10.0;
+        Double noDiscount = 0.0;
+        Product soup = new Product("soup", 5.0);
+        Product bread = new Product("bread", priceOfBread);
+        Discount discount = new SoupAndBreadComboDiscount(soup, bread);
+        Basket basket = new Basket();
+
+        basket.add(soup);
+        basket.add(bread);
+        Double discountToPrice = discount.calculateTotalForBasket(basket);
+
+        assertEquals(noDiscount, discountToPrice);
     }
 }

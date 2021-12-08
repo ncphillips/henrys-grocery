@@ -1,10 +1,26 @@
 package henrys.grocery.discounts;
 
 import henrys.grocery.Basket;
+import henrys.grocery.Product;
 
 public class SoupAndBreadComboDiscount extends Discount {
+    Product soup;
+    Product bread;
+
+    public SoupAndBreadComboDiscount(Product soup, Product bread) {
+        this.soup = soup;
+        this.bread = bread;
+    }
+
     @Override
     public Double calculateTotalForBasket(Basket basket) {
-        return 2.5;
+        int countOfSoup = basket.getCountOfProduct(soup).intValue();
+        int countOfBread = basket.getCountOfProduct(bread).intValue();
+
+        if (countOfBread == 1 && countOfSoup == 2) {
+            return bread.getPrice() / 2.0;
+        }
+
+        return 0.0;
     }
 }
