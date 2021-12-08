@@ -14,7 +14,7 @@ Basic pricing
 
 Discounted pricing
 - [x] No discounts. (Probably just implied by basic pricing.)
-- [ ] One active discount that applies to the basket.
+- [x] One active discount that applies to the basket.
 - [ ] One active discount that does NOT apply to the basket.
 - [ ] One pending discount
 - [ ] One expired discount
