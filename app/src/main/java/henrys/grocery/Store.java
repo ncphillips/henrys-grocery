@@ -12,10 +12,7 @@ public class Store {
     }
 
     public Double calculateBasketPrice(Basket basket) {
-        Double subtotal = getSubtotal(basket);
-        Double discountToPrice = getDiscountToPrice(basket);
-
-        return subtotal - discountToPrice;
+        return getSubtotal(basket) - getDiscountToPrice(basket);
     }
 
     private Double getSubtotal(Basket basket) {
