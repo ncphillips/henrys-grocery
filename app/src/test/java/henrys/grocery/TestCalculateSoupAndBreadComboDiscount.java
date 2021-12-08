@@ -54,4 +54,36 @@ public class TestCalculateSoupAndBreadComboDiscount {
 
         assertEquals(expectedDiscountToPrice, discountToPrice);
     }
+
+    @Test
+    public void twoSoupTwoBread() {
+        Double priceOfBread = 8.8;
+        Double expectedDiscountToPrice = 4.4;
+        Product soup = new Product("soup", 2.5);
+        Product bread = new Product("bread", priceOfBread);
+        Discount discount = new SoupAndBreadComboDiscount(soup, bread);
+        Basket basket = new Basket();
+
+        basket.addMany(2, soup);
+        basket.addMany(2, bread);
+        Double discountToPrice = discount.calculateTotalForBasket(basket);
+
+        assertEquals(expectedDiscountToPrice, discountToPrice);
+    }
+
+    @Test
+    public void fourSoupOneBread() {
+        Double priceOfBread = 4.0;
+        Double expectedDiscountToPrice = 2.0;
+        Product soup = new Product("soup", 2.5);
+        Product bread = new Product("bread", priceOfBread);
+        Discount discount = new SoupAndBreadComboDiscount(soup, bread);
+        Basket basket = new Basket();
+
+        basket.addMany(4, soup);
+        basket.addMany(1, bread);
+        Double discountToPrice = discount.calculateTotalForBasket(basket);
+
+        assertEquals(expectedDiscountToPrice, discountToPrice);
+    }
 }
