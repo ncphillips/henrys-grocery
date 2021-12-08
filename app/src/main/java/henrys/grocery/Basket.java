@@ -6,7 +6,7 @@ public class Basket {
     ArrayList<Product> products = new ArrayList<>();
 
     public void add(Product product) {
-        products.add(product);
+        addMany(1, product);
     }
 
     public void addMany(int count, Product product) {
