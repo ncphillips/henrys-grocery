@@ -14,16 +14,12 @@ public class SoupAndBreadComboDiscount extends Discount {
 
     @Override
     public Double calculateTotalForBasket(Basket basket) {
-        int countOfSoup = basket.getCountOfProduct(soup).intValue();
-        int countOfBread = basket.getCountOfProduct(bread).intValue();
+        Double countOfSoup = basket.getCountOfProduct(soup).doubleValue();
+        Double countOfBread = basket.getCountOfProduct(bread).doubleValue();
 
-        if (countOfBread == 1 && countOfSoup == 2) {
-            return bread.getPrice() / 2.0;
-        }
+        Double maxApplies = Math.floor(countOfSoup / 2.0);
+        Double numApplies = Math.min(maxApplies, countOfBread);
 
-        int maxDiscountApplications = countOfSoup / 2;
-        int numDiscountApplications = Math.min(maxDiscountApplications, countOfBread);
-
-        return numDiscountApplications * bread.getPrice() / 2.0;
+        return numApplies * bread.getPrice() / 2.0;
     }
 }

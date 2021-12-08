@@ -2,6 +2,7 @@ package henrys.grocery;
 
 import henrys.grocery.discounts.Discount;
 import henrys.grocery.discounts.PercentOffDiscount;
+import henrys.grocery.discounts.SoupAndBreadComboDiscount;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -94,25 +95,26 @@ public class TestCalculatePrice {
 
     @Test
     public void applyMultipleDiscounts() {
-        Double expectedPrice = 7.5 + 4.0;
+        Double expectedPrice = 7.5 + (1.25 * 2.0) + (10.0 / 2.0);
 
         Double initialRanchPrice = 10.0;
         Double percentOffRanch = 0.25;
         Product ranchDressing = new Product("ranch dressing", initialRanchPrice);
         Discount ranchDiscount = new PercentOffDiscount(percentOffRanch, ranchDressing);
 
-        Double initialPicklesPrice = 5.0;
-        Double percentOffPickles = 0.20;
-        Product pickles = new Product("pickles", initialPicklesPrice);
-        Discount picklesDiscount = new PercentOffDiscount(percentOffPickles, pickles);
+        Double initialPriceOfBread = 10.0;
+        Product soup = new Product("soup", 1.25);
+        Product bread = new Product("bread", initialPriceOfBread);
+        Discount soupAndBreadComboDiscount = new SoupAndBreadComboDiscount(soup, bread);
 
         Store store = new Store();
-        store.addDiscount(picklesDiscount);
         store.addDiscount(ranchDiscount);
+        store.addDiscount(soupAndBreadComboDiscount);
 
         Basket basket = new Basket();
         basket.add(ranchDressing);
-        basket.add(pickles);
+        basket.add(bread);
+        basket.addMany(2, soup);
 
         Double price = store.calculateBasketPrice(basket);
 
