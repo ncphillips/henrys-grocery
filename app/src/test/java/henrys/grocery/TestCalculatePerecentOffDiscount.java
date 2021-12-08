@@ -33,4 +33,21 @@ public class TestCalculatePerecentOffDiscount {
 
         assertEquals(expectedTotal, discountTotal);
     }
+
+    @Test
+    public void percentOffSomeProducts() {
+        Double expectedTotal = 2.0;
+        Product pear = new Product("pear", 0.75);
+        Product grapes = new Product("grapes", 5.0);
+        Discount grapesDiscount = new PercentOffDiscount(0.2, grapes);
+        Basket basket = new Basket();
+
+        basket.addMany(3, pear);
+        basket.addMany(2, grapes);
+
+        Double discountTotal = grapesDiscount.calculateTotalForBasket(basket);
+
+        assertEquals(expectedTotal, discountTotal);
+    }
+
 }
