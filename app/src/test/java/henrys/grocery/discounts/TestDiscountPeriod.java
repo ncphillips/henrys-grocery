@@ -53,4 +53,14 @@ public class TestDiscountPeriod {
 
         assertFalse(discount.isActive());
     }
+
+    @Test
+    public void checkingFutureState() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate nextWeek = LocalDate.now().plusDays(7);
+
+        Discount discount = new ExampleDiscount(tomorrow, null);
+
+        assertTrue(discount.isActive(nextWeek));
+    }
 }
