@@ -26,3 +26,9 @@ Projections
 - [ ] 2 days hence
 - [ ] 5 days hence
 - [ ] 35 days hence
+
+## Other thoughts
+
+- My gut says it would be better if the Discounts asked the Store
+  for the price of a Product, rather than the basket. It's not
+  immediately obvious how to push that change so I'll wait.
