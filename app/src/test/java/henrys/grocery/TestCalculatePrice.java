@@ -38,15 +38,14 @@ public class TestCalculatePrice {
 
     @Test
     public void conflictingPrices() {
-        String productId = "coffee";
-
+        String productName = "coffee";
         Double firstPrice = 2.5;
-        Product version1 = new Product(productId, firstPrice);
+        Double secondPrice = 3.0;
+        Product version1 = new Product(productName, firstPrice);
 
         Basket basket = new Basket() {{ add(version1); }};
 
-        Double secondPrice = 3.0;
-        Product version2 = new Product(productId, secondPrice);
+        Product version2 = new Product(productName, secondPrice);
         Store store = new Store() {{ addProduct(version2); }};
 
         Double price = store.calculateBasketPrice(basket);
@@ -102,11 +101,9 @@ public class TestCalculatePrice {
 
     @Test
     public void applyOneDiscount() {
-        Double initialPrice = 8.0;
-        Double percentOff = 0.25;
         Double expectedPrice = 6.0;
-        Product peanutButter = new Product("peanut butter", initialPrice);
-        Discount discount = new PercentOffDiscount(percentOff, peanutButter);
+        Product peanutButter = new Product("peanut butter", 8.0);
+        Discount discount = new PercentOffDiscount(0.25, peanutButter);
         Store store = new Store() {{ addDiscount(discount); }};
         Basket basket = new Basket() {{ add(peanutButter); }};
 
@@ -118,26 +115,20 @@ public class TestCalculatePrice {
     @Test
     public void applyMultipleDiscounts() {
         Double expectedPrice = 7.5 + (1.25 * 2.0) + (10.0 / 2.0);
-
-        Double initialRanchPrice = 10.0;
-        Double percentOffRanch = 0.25;
-        Product ranchDressing = new Product("ranch dressing", initialRanchPrice);
-        Discount ranchDiscount = new PercentOffDiscount(percentOffRanch, ranchDressing);
-
-        Double initialPriceOfBread = 10.0;
+        Product ranchDressing = new Product("ranch dressing", 10.0);
         Product soup = new Product("soup", 1.25);
-        Product bread = new Product("bread", initialPriceOfBread);
-        Discount soupAndBreadComboDiscount = new SoupAndBreadComboDiscount(soup, bread);
-
-        Store store = new Store() {{
-            addDiscount(ranchDiscount);
-            addDiscount(soupAndBreadComboDiscount);
-        }};
-
+        Product bread = new Product("bread", 10.0);
         Basket basket = new Basket() {{
             add(ranchDressing);
             add(bread);
             addMany(2, soup);
+        }};
+
+        Discount ranchDiscount = new PercentOffDiscount(0.25, ranchDressing);
+        Discount soupAndBreadComboDiscount = new SoupAndBreadComboDiscount(soup, bread);
+        Store store = new Store() {{
+            addDiscount(ranchDiscount);
+            addDiscount(soupAndBreadComboDiscount);
         }};
 
         Double price = store.calculateBasketPrice(basket);
