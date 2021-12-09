@@ -11,8 +11,8 @@ import static org.junit.Assert.assertTrue;
 public class TestDiscountPeriod {
     static class ExampleDiscount extends Discount {
         public ExampleDiscount() { }
-        public ExampleDiscount(LocalDate started) {
-            super(started);
+        public ExampleDiscount(LocalDate started, LocalDate endsOn) {
+            super(started, endsOn);
         }
         @Override
         public Double calculateTotalForBasket(Basket basket) {
@@ -31,7 +31,7 @@ public class TestDiscountPeriod {
     public void startedYesterday() {
         LocalDate started = LocalDate.now().minusDays(1);
 
-        Discount discount = new ExampleDiscount(started);
+        Discount discount = new ExampleDiscount(started, null);
 
         assertTrue(discount.isActive());
     }
@@ -40,7 +40,16 @@ public class TestDiscountPeriod {
     public void startingTomorrow() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
 
-        Discount discount = new ExampleDiscount(tomorrow);
+        Discount discount = new ExampleDiscount(tomorrow, null);
+
+        assertFalse(discount.isActive());
+    }
+
+    @Test
+    public void endedYesterday() {
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
+        Discount discount = new ExampleDiscount(null, yesterday);
 
         assertFalse(discount.isActive());
     }
