@@ -25,18 +25,18 @@ public abstract class Discount {
     }
 
     private boolean hasStarted(LocalDate date) {
-        if (startDate != null) {
-            return date.isAfter(startDate.minusDays(1));
+        if (startDate == null) {
+            return true;
         }
 
-        return true;
+        return date.isAfter(startDate.minusDays(1));
     }
 
     private boolean hasEnded(LocalDate date) {
-        if (endDate != null) {
-            return !date.isBefore(endDate.plusDays(1));
+        if (endDate == null) {
+            return false;
         }
 
-        return false;
+        return !date.isBefore(endDate.plusDays(1));
     }
 }
