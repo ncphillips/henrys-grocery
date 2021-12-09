@@ -22,7 +22,9 @@ public class Store {
     }
 
     public Double calculateBasketPrice(Basket basket) {
-        return getSubtotal(basket) - getDiscountToPrice(basket);
+        LocalDate date = LocalDate.now();
+
+        return getSubtotal(basket) - getDiscountToPrice(basket, date);
     }
 
     private Double getSubtotal(Basket basket) {
@@ -35,13 +37,11 @@ public class Store {
         return Objects.requireNonNullElse(storesRecord, product).getPrice();
     }
 
-    private Double getDiscountToPrice(Basket basket) {
-        return getActiveDiscounts().stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
+    private Double getDiscountToPrice(Basket basket, LocalDate date) {
+        return getActiveDiscounts(date).stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
     }
 
-    private List<Discount> getActiveDiscounts() {
-        LocalDate date = LocalDate.now();
-
+    private List<Discount> getActiveDiscounts(LocalDate date) {
         return discounts.stream().filter(discount -> discount.isActive(date)).toList();
     }
 
