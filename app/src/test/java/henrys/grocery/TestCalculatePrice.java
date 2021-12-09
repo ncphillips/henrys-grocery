@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 
 public class TestCalculatePrice {
+    LocalDate today = LocalDate.now();
+    
     @Test
     public void zeroProducts() {
         Double expectedPrice = 0.0;
@@ -153,7 +155,7 @@ public class TestCalculatePrice {
         basket.add(carrots);
         Store store = new Store();
 
-        Discount discount = new PercentOffDiscount(0.5, carrots, LocalDate.now().plusDays(3), null);
+        Discount discount = new PercentOffDiscount(0.5, carrots, today.plusDays(3), null);
         store.addDiscount(discount);
         Double price = store.calculateBasketPrice(basket);
 
@@ -168,7 +170,7 @@ public class TestCalculatePrice {
         basket.add(carrots);
         Store store = new Store();
 
-        Discount discount = new PercentOffDiscount(0.5, carrots, LocalDate.now().minusDays(10), LocalDate.now().minusDays(3));
+        Discount discount = new PercentOffDiscount(0.5, carrots, today.minusDays(10), today.minusDays(3));
         store.addDiscount(discount);
         Double price = store.calculateBasketPrice(basket);
 
