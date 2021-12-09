@@ -3,6 +3,7 @@ package henrys.grocery;
 import henrys.grocery.discounts.Discount;
 import henrys.grocery.discounts.PercentOffDiscount;
 import henrys.grocery.discounts.SoupAndBreadComboDiscount;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +32,27 @@ public class TestCalculatePrice {
 
         assertEquals(expectedPrice, price);
     }
+
+    @Ignore
+    public void conflictingPrices() {
+        String productId = "coffee";
+
+        Double firstPrice = 2.5;
+        Product version1 = new Product(productId, firstPrice);
+
+        Basket basket = new Basket();
+        basket.add(version1);
+
+        Double secondPrice = 3.0;
+        Product version2 = new Product(productId, secondPrice);
+        Store store = new Store();
+        store.addProduct(version2);
+
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(secondPrice, price);
+    }
+
 
     @Test
     public void multipleInstancesOfAProduct() {
@@ -120,4 +142,6 @@ public class TestCalculatePrice {
 
         assertEquals(expectedPrice, price);
     }
+
+
 }

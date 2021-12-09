@@ -22,4 +22,7 @@ public class Store {
     private Double getDiscountToPrice(Basket basket) {
         return discounts.stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
     }
+
+    public void addProduct(Product version2) {
+    }
 }
