@@ -17,12 +17,12 @@ public abstract class Discount {
 
 
     public boolean isActive() {
-        return hasStarted() && !hasEnded();
-    }
-
-    private boolean hasStarted() {
         LocalDate date = LocalDate.now();
 
+        return hasStarted(date) && !hasEnded(date);
+    }
+
+    private boolean hasStarted(LocalDate date) {
         if (startDate != null) {
             return date.isAfter(startDate.minusDays(1));
         }
@@ -30,9 +30,7 @@ public abstract class Discount {
         return true;
     }
 
-    private boolean hasEnded() {
-        LocalDate date = LocalDate.now();
-
+    private boolean hasEnded(LocalDate date) {
         if (endDate != null) {
             return !date.isBefore(endDate.plusDays(1));
         }
