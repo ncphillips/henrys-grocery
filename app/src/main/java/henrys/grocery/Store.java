@@ -27,7 +27,11 @@ public class Store {
     }
 
     private Double getSubtotal(Basket basket) {
-        return basket.getItemList().stream().map(Product::getPrice).reduce(0.0, Double::sum);
+        return basket.getItemList().stream().map(this::getProductPrice).reduce(0.0, Double::sum);
+    }
+
+    private Double getProductPrice(Product product) {
+        return product.getPrice();
     }
 
     private Double getDiscountToPrice(Basket basket) {
