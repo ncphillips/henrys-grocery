@@ -22,9 +22,7 @@ public abstract class Discount {
 
         hasStarted = hasStarted();
 
-        if (endDate != null) {
-            hasNotEnded = LocalDate.now().isBefore(endDate.plusDays(1));
-        }
+        hasNotEnded = !hasEnded();
 
         return hasStarted && hasNotEnded;
     }
@@ -34,5 +32,12 @@ public abstract class Discount {
             return LocalDate.now().isAfter(startDate.minusDays(1));
         }
         return true;
+    }
+
+    private boolean hasEnded() {
+        if (endDate != null) {
+            return !LocalDate.now().isBefore(endDate.plusDays(1));
+        }
+        return false;
     }
 }
