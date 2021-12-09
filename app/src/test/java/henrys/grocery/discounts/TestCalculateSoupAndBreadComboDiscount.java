@@ -1,5 +1,7 @@
-package henrys.grocery;
+package henrys.grocery.discounts;
 
+import henrys.grocery.Basket;
+import henrys.grocery.Product;
 import henrys.grocery.discounts.Discount;
 import henrys.grocery.discounts.SoupAndBreadComboDiscount;
 import org.junit.Test;
