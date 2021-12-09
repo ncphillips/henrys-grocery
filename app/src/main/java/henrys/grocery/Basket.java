@@ -1,9 +1,10 @@
 package henrys.grocery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Basket {
-    ArrayList<Product> products = new ArrayList<>();
+    List<Product> products = new ArrayList<>();
 
     public void add(Product product) {
         addMany(1, product);
@@ -15,7 +16,7 @@ public class Basket {
         }
     }
 
-    public ArrayList<Product> getItemList() {
+    public List<Product> getItemList() {
         return products;
     }
 
