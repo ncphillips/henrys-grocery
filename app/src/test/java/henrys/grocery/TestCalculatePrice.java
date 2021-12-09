@@ -29,8 +29,7 @@ public class TestCalculatePrice {
         Double expectedPrice = 2.5;
         Product product = new Product("orange", expectedPrice);
         Store store = new Store();
-        Basket basket = new Basket();
-        basket.add(product);
+        Basket basket = new Basket() {{ add(product); }};
 
         Double price = store.calculateBasketPrice(basket);
 
@@ -44,13 +43,11 @@ public class TestCalculatePrice {
         Double firstPrice = 2.5;
         Product version1 = new Product(productId, firstPrice);
 
-        Basket basket = new Basket();
-        basket.add(version1);
+        Basket basket = new Basket() {{ add(version1); }};
 
         Double secondPrice = 3.0;
         Product version2 = new Product(productId, secondPrice);
-        Store store = new Store();
-        store.addProduct(version2);
+        Store store = new Store() {{ addProduct(version2); }};
 
         Double price = store.calculateBasketPrice(basket);
 
@@ -63,9 +60,8 @@ public class TestCalculatePrice {
         Double expectedPrice = 4.5;
         Product product = new Product("pear", 2.25);
         Store store = new Store();
-        Basket basket = new Basket();
+        Basket basket = new Basket() {{ addMany(2, product); }};
 
-        basket.addMany(2, product);
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(expectedPrice, price);
@@ -77,10 +73,11 @@ public class TestCalculatePrice {
         Product banana = new Product("banana", 1.0);
         Product grapefruit= new Product("grapefruit", 2.0);
         Store store = new Store();
-        Basket basket = new Basket();
+        Basket basket = new Basket() {{
+            add(banana);
+            add(grapefruit);
+        }};
 
-        basket.add(banana);
-        basket.add(grapefruit);
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(expectedPrice, price);
@@ -92,11 +89,12 @@ public class TestCalculatePrice {
         Product raisins = new Product("raisins", 1.0);
         Product avacado = new Product("avacado", 1.0);
         Store store = new Store();
-        Basket basket = new Basket();
+        Basket basket = new Basket() {{
+            add(raisins);
+            addMany(2, avacado);
+            addMany(2, raisins);
+        }};
 
-        basket.add(raisins);
-        basket.addMany(2, avacado);
-        basket.addMany(2, raisins);
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(expectedPrice, price);
@@ -109,11 +107,9 @@ public class TestCalculatePrice {
         Double expectedPrice = 6.0;
         Product peanutButter = new Product("peanut butter", initialPrice);
         Discount discount = new PercentOffDiscount(percentOff, peanutButter);
-        Store store = new Store();
-        Basket basket = new Basket();
+        Store store = new Store() {{ addDiscount(discount); }};
+        Basket basket = new Basket() {{ add(peanutButter); }};
 
-        store.addDiscount(discount);
-        basket.add(peanutButter);
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(expectedPrice, price);
@@ -133,14 +129,16 @@ public class TestCalculatePrice {
         Product bread = new Product("bread", initialPriceOfBread);
         Discount soupAndBreadComboDiscount = new SoupAndBreadComboDiscount(soup, bread);
 
-        Store store = new Store();
-        store.addDiscount(ranchDiscount);
-        store.addDiscount(soupAndBreadComboDiscount);
+        Store store = new Store() {{
+            addDiscount(ranchDiscount);
+            addDiscount(soupAndBreadComboDiscount);
+        }};
 
-        Basket basket = new Basket();
-        basket.add(ranchDressing);
-        basket.add(bread);
-        basket.addMany(2, soup);
+        Basket basket = new Basket() {{
+            add(ranchDressing);
+            add(bread);
+            addMany(2, soup);
+        }};
 
         Double price = store.calculateBasketPrice(basket);
 
@@ -151,12 +149,10 @@ public class TestCalculatePrice {
     public void pendingDiscounts() {
         Double fullPrice = 5.0;
         Product carrots = new Product("carrots", fullPrice);
-        Basket basket = new Basket();
-        basket.add(carrots);
-        Store store = new Store();
+        Basket basket = new Basket() {{ add(carrots); }};
 
         Discount discount = new PercentOffDiscount(0.5, carrots, today.plusDays(3), null);
-        store.addDiscount(discount);
+        Store store = new Store() {{ addDiscount(discount); }};
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(fullPrice, price);
@@ -166,12 +162,10 @@ public class TestCalculatePrice {
     public void expiredDiscounts() {
         Double fullPrice = 5.0;
         Product carrots = new Product("carrots", fullPrice);
-        Basket basket = new Basket();
-        basket.add(carrots);
-        Store store = new Store();
+        Basket basket = new Basket() {{ add(carrots); }};
 
         Discount discount = new PercentOffDiscount(0.5, carrots, today.minusDays(10), today.minusDays(3));
-        store.addDiscount(discount);
+        Store store = new Store() {{ addDiscount(discount); }};
         Double price = store.calculateBasketPrice(basket);
 
         assertEquals(fullPrice, price);
