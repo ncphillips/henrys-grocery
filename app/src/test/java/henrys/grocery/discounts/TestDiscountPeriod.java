@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestDiscountPeriod {
@@ -33,5 +34,14 @@ public class TestDiscountPeriod {
         Discount discount = new ExampleDiscount(started);
 
         assertTrue(discount.isActive());
+    }
+
+    @Test
+    public void startingTomorrow() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+
+        Discount discount = new ExampleDiscount(tomorrow);
+
+        assertFalse(discount.isActive());
     }
 }
