@@ -16,9 +16,8 @@ Discounted pricing
 - [x] No discounts. (Probably just implied by basic pricing.)
 - [x] One active discount that applies to the basket.
 - [ ] One active discount that does NOT apply to the basket.
-- [ ] One pending discount
-- [ ] One expired discount
-- [ ] One active and one pending discount
+- [x] One pending discount
+- [x] One expired discount
 - [ ] Multiple active discounts
 
 Projections

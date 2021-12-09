@@ -159,4 +159,19 @@ public class TestCalculatePrice {
 
         assertEquals(fullPrice, price);
     }
+
+    @Test
+    public void expiredDiscounts() {
+        Double fullPrice = 5.0;
+        Product carrots = new Product("carrots", fullPrice);
+        Basket basket = new Basket();
+        basket.add(carrots);
+        Store store = new Store();
+
+        Discount discount = new PercentOffDiscount(0.5, carrots, LocalDate.now().minusDays(10), LocalDate.now().minusDays(3));
+        store.addDiscount(discount);
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(fullPrice, price);
+    }
 }
