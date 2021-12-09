@@ -15,7 +15,7 @@ public class Product {
         return price;
     }
 
-    public String getID() {
+    public String getName() {
         return name;
     }
 

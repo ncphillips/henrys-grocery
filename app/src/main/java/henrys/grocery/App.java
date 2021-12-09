@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
@@ -64,7 +63,7 @@ public class App {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         products.forEach(product -> {
-            System.out.println("How many " + product.getID() + " ($" + product.getPrice() + ") do you want?");
+            System.out.println("How many " + product.getName() + " ($" + product.getPrice() + ") do you want?");
 
             int count = scanner.nextInt();
 

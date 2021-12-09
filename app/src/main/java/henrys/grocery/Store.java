@@ -14,7 +14,7 @@ public class Store {
     }
 
     public void addProduct(Product product) {
-        products.put(product.getID(), product);
+        products.put(product.getName(), product);
     }
 
     public Product getProduct(String id) {
@@ -38,7 +38,7 @@ public class Store {
     }
 
     private Double getProductPrice(Product product) {
-        Product storesRecord = getProduct(product.getID());
+        Product storesRecord = getProduct(product.getName());
 
         return Objects.requireNonNullElse(storesRecord, product).getPrice();
     }
