@@ -20,13 +20,17 @@ public class TestFromReadme {
 
     @Before
     public void setUp() {
-//        TODO: start and end date.
         LocalDate comboStartDate = LocalDate.now().minusDays(1);
         LocalDate comboEndDate = comboStartDate.plusDays(7);
         Discount soupAndBread = new SoupAndBreadComboDiscount(soup, bread, comboStartDate, comboEndDate);
 
         LocalDate appleDiscountStartDate = LocalDate.now().plusDays(3);
-        LocalDate appleDiscountEndDate = null; // TODO: calculate end of the month...feels like a flaky test.
+        // TODO: This is a funky calculation. I don't totally trust it.
+        // https://stackoverflow.com/questions/13624442/getting-last-day-of-the-month-in-a-given-string-date
+        LocalDate appleDiscountEndDate = appleDiscountStartDate.withDayOfMonth(
+                appleDiscountStartDate.getMonth().length(appleDiscountStartDate.isLeapYear())
+        );
+
         Discount appleDiscount = new PercentOffDiscount(0.10, apples, appleDiscountStartDate, appleDiscountEndDate);
 
         store.addDiscount(soupAndBread);
