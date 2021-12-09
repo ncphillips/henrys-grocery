@@ -8,6 +8,7 @@ public class PercentOffDiscount extends Discount {
     private final Double percentOff;
 
     public PercentOffDiscount(Double percentOff, Product product) {
+        super();
         this.product = product;
         this.percentOff = percentOff;
     }
