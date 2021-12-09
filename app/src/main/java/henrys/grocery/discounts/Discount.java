@@ -17,9 +17,7 @@ public abstract class Discount {
 
 
     public boolean isActive() {
-        LocalDate date = LocalDate.now();
-
-        return hasStarted(date) && !hasEnded(date);
+        return isActive(LocalDate.now());
     }
 
     public boolean isActive(LocalDate date) {
