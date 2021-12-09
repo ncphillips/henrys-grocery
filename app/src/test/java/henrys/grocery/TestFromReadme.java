@@ -21,7 +21,9 @@ public class TestFromReadme {
     @Before
     public void setUp() {
 //        TODO: start and end date.
-        Discount soupAndBread = new SoupAndBreadComboDiscount(soup, bread);
+        LocalDate comboStartDate = LocalDate.now().minusDays(1);
+        LocalDate comboEndDate = comboStartDate.plusDays(7);
+        Discount soupAndBread = new SoupAndBreadComboDiscount(soup, bread, comboStartDate, comboEndDate);
 
         LocalDate appleDiscountStartDate = LocalDate.now().plusDays(3);
         LocalDate appleDiscountEndDate = null; // TODO: calculate end of the month...feels like a flaky test.
