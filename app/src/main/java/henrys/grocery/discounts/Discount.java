@@ -20,14 +20,19 @@ public abstract class Discount {
         boolean hasStarted = true;
         boolean hasNotEnded = true;
 
-        if (startDate != null) {
-            hasStarted = LocalDate.now().isAfter(startDate.minusDays(1));
-        }
+        hasStarted = hasStarted();
 
         if (endDate != null) {
             hasNotEnded = LocalDate.now().isBefore(endDate.plusDays(1));
         }
 
         return hasStarted && hasNotEnded;
+    }
+
+    private boolean hasStarted() {
+        if (startDate != null) {
+            return LocalDate.now().isAfter(startDate.minusDays(1));
+        }
+        return true;
     }
 }
