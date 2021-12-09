@@ -5,6 +5,7 @@ import henrys.grocery.discounts.Discount;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Store {
     ArrayList<Discount> discounts = new ArrayList<>();
@@ -33,11 +34,7 @@ public class Store {
     private Double getProductPrice(Product product) {
         Product storesRecord = getProduct(product.getID());
 
-        if (storesRecord != null) {
-            return storesRecord.getPrice();
-        }
-
-        return product.getPrice();
+        return Objects.requireNonNullElse(storesRecord, product).getPrice();
     }
 
     private Double getDiscountToPrice(Basket basket) {
