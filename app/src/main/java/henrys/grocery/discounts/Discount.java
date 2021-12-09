@@ -17,14 +17,7 @@ public abstract class Discount {
 
 
     public boolean isActive() {
-        boolean hasStarted = true;
-        boolean hasNotEnded = true;
-
-        hasStarted = hasStarted();
-
-        hasNotEnded = !hasEnded();
-
-        return hasStarted && hasNotEnded;
+        return hasStarted() && !hasEnded();
     }
 
     private boolean hasStarted() {
