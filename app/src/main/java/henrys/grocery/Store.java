@@ -27,6 +27,12 @@ public class Store {
         return getSubtotal(basket) - getDiscountToPrice(basket, date);
     }
 
+    public Double calculateBasketPrice(Basket basket, LocalDate date) {
+        Double total = (getSubtotal(basket) - getDiscountToPrice(basket, date)) * 100.0;
+
+        return Math.round(total) / 100.0;
+    }
+
     private Double getSubtotal(Basket basket) {
         return basket.getItemList().stream().map(this::getProductPrice).reduce(0.0, Double::sum);
     }

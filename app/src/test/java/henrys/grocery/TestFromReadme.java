@@ -1,9 +1,13 @@
 package henrys.grocery;
 
 import henrys.grocery.discounts.Discount;
+import henrys.grocery.discounts.PercentOffDiscount;
 import henrys.grocery.discounts.SoupAndBreadComboDiscount;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +23,12 @@ public class TestFromReadme {
 //        TODO: start and end date.
         Discount soupAndBread = new SoupAndBreadComboDiscount(soup, bread);
 
+        LocalDate appleDiscountStartDate = LocalDate.now().plusDays(3);
+        LocalDate appleDiscountEndDate = null; // TODO: calculate end of the month...feels like a flaky test.
+        Discount appleDiscount = new PercentOffDiscount(0.10, apples, appleDiscountStartDate, appleDiscountEndDate);
+
         store.addDiscount(soupAndBread);
+        store.addDiscount(appleDiscount);
     }
 
     @Test
@@ -44,6 +53,19 @@ public class TestFromReadme {
         basket.add(milk);
 
         Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
+
+    @Test
+    public void third() {
+        Double expectedPrice = 1.84;
+
+        Basket basket = new Basket();
+        basket.addMany(6, apples);
+        basket.add(milk);
+
+        Double price = store.calculateBasketPrice(basket, LocalDate.now().plusDays(5));
 
         assertEquals(expectedPrice, price);
     }
