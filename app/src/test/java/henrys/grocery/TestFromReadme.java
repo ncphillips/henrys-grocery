@@ -34,4 +34,17 @@ public class TestFromReadme {
 
         assertEquals(expectedPrice, price);
     }
+
+    @Test
+    public void second() {
+        Double expectedPrice = 1.9;
+
+        Basket basket = new Basket();
+        basket.addMany(6, apples);
+        basket.add(milk);
+
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(expectedPrice, price);
+    }
 }
