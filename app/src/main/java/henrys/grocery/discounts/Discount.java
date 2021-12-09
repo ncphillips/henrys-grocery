@@ -21,16 +21,22 @@ public abstract class Discount {
     }
 
     private boolean hasStarted() {
+        LocalDate date = LocalDate.now();
+
         if (startDate != null) {
-            return LocalDate.now().isAfter(startDate.minusDays(1));
+            return date.isAfter(startDate.minusDays(1));
         }
+
         return true;
     }
 
     private boolean hasEnded() {
+        LocalDate date = LocalDate.now();
+
         if (endDate != null) {
-            return !LocalDate.now().isBefore(endDate.plusDays(1));
+            return !date.isBefore(endDate.plusDays(1));
         }
+
         return false;
     }
 }
