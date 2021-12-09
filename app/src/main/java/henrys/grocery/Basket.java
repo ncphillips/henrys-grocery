@@ -21,6 +21,6 @@ public class Basket {
     }
 
     public Long getCountOfProduct(Product product) {
-        return items.stream().filter(item -> item.getID().equals(product.getID())).count();
+        return items.stream().filter(item -> item.equals(product)).count();
     }
 }
