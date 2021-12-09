@@ -33,7 +33,7 @@ public class TestCalculatePrice {
         assertEquals(expectedPrice, price);
     }
 
-    @Ignore
+    @Test
     public void conflictingPrices() {
         String productId = "coffee";
 

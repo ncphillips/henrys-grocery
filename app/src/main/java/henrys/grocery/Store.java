@@ -31,6 +31,12 @@ public class Store {
     }
 
     private Double getProductPrice(Product product) {
+        Product storesRecord = getProduct(product.getID());
+
+        if (storesRecord != null) {
+            return storesRecord.getPrice();
+        }
+
         return product.getPrice();
     }
 
