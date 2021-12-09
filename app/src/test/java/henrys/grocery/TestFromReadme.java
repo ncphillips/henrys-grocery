@@ -39,53 +39,54 @@ public class TestFromReadme {
 
     @Test
     public void first() {
-        Double expectedPrice = 3.15;
-
-        Basket basket = new Basket();
-        basket.addMany(3, soup);
-        basket.addMany(2, bread);
+        Basket basket = new Basket() {{
+            addMany(3, soup);
+            addMany(2, bread);
+        }};
 
         Double price = store.calculateBasketPrice(basket);
 
+        Double expectedPrice = 3.15;
         assertEquals(expectedPrice, price);
     }
 
     @Test
     public void second() {
-        Double expectedPrice = 1.9;
-
-        Basket basket = new Basket();
-        basket.addMany(6, apples);
-        basket.add(milk);
+        Basket basket = new Basket() {{
+            addMany(6, apples);
+            add(milk);
+        }};
 
         Double price = store.calculateBasketPrice(basket);
 
+        Double expectedPrice = 1.9;
         assertEquals(expectedPrice, price);
     }
 
     @Test
     public void third() {
-        Double expectedPrice = 1.84;
-
-        Basket basket = new Basket();
-        basket.addMany(6, apples);
-        basket.add(milk);
+        Basket basket = new Basket() {{
+            addMany(6, apples);
+            add(milk);
+        }};
 
         Double price = store.calculateBasketPrice(basket, LocalDate.now().plusDays(5));
 
+        Double expectedPrice = 1.84;
         assertEquals(expectedPrice, price);
     }
+
     @Test
     public void fourth() {
-        Double expectedPrice = 1.97;
-
-        Basket basket = new Basket();
-        basket.addMany(3, apples);
-        basket.addMany(2, soup);
-        basket.add(bread);
+        Basket basket = new Basket() {{
+            addMany(3, apples);
+            addMany(2, soup);
+            add(bread);
+        }};
 
         Double price = store.calculateBasketPrice(basket, LocalDate.now().plusDays(5));
 
+        Double expectedPrice = 1.97;
         assertEquals(expectedPrice, price);
     }
 }

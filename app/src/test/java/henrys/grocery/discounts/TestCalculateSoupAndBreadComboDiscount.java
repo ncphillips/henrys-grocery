@@ -16,10 +16,11 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Product soup = new Product("soup", 2.0);
         Product bread = new Product("bread", priceOfBread);
         Discount discount = new SoupAndBreadComboDiscount(soup, bread);
-        Basket basket = new Basket();
 
-        basket.addMany(2, soup);
-        basket.add(bread);
+        Basket basket = new Basket() {{
+            addMany(2, soup);
+            add(bread);
+        }};
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(expectedDiscountToPrice, discountToPrice);
@@ -32,10 +33,11 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Product soup = new Product("soup", 5.0);
         Product bread = new Product("bread", priceOfBread);
         Discount discount = new SoupAndBreadComboDiscount(soup, bread);
-        Basket basket = new Basket();
 
-        basket.add(soup);
-        basket.add(bread);
+        Basket basket = new Basket() {{
+            add(soup);
+            add(bread);
+        }};
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(noDiscount, discountToPrice);
@@ -48,10 +50,11 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Product soup = new Product("soup", 2.5);
         Product bread = new Product("bread", priceOfBread);
         Discount discount = new SoupAndBreadComboDiscount(soup, bread);
-        Basket basket = new Basket();
 
-        basket.addMany(4, soup);
-        basket.addMany(2, bread);
+        Basket basket = new Basket() {{
+            addMany(4, soup);
+            addMany(2, bread);
+        }};
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(expectedDiscountToPrice, discountToPrice);
@@ -64,10 +67,11 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Product soup = new Product("soup", 2.5);
         Product bread = new Product("bread", priceOfBread);
         Discount discount = new SoupAndBreadComboDiscount(soup, bread);
-        Basket basket = new Basket();
 
-        basket.addMany(2, soup);
-        basket.addMany(2, bread);
+        Basket basket = new Basket() {{
+            addMany(2, soup);
+            addMany(2, bread);
+        }};
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(expectedDiscountToPrice, discountToPrice);
@@ -80,10 +84,11 @@ public class TestCalculateSoupAndBreadComboDiscount {
         Product soup = new Product("soup", 2.5);
         Product bread = new Product("bread", priceOfBread);
         Discount discount = new SoupAndBreadComboDiscount(soup, bread);
-        Basket basket = new Basket();
 
-        basket.addMany(4, soup);
-        basket.addMany(1, bread);
+        Basket basket = new Basket() {{
+            addMany(4, soup);
+            addMany(1, bread);
+        }};
         Double discountToPrice = discount.calculateTotalForBasket(basket);
 
         assertEquals(expectedDiscountToPrice, discountToPrice);

@@ -14,8 +14,9 @@ public class TestCalculatePerecentOffDiscount {
         Double expectedTotal = 1.0;
         Product banana = new Product("banana", 4.0);
         Discount discount = new PercentOffDiscount(0.25, banana);
-        Basket basket = new Basket();
-        basket.add(banana);
+        Basket basket = new Basket() {{
+            add(banana);
+        }};
 
         Double discountTotal = discount.calculateTotalForBasket(basket);
 
@@ -27,9 +28,9 @@ public class TestCalculatePerecentOffDiscount {
         Double expectedTotal = 1.5;
         Product apple = new Product("apple", 1.5);
         Discount discount = new PercentOffDiscount(0.50, apple);
-        Basket basket = new Basket();
-
-        basket.addMany(2, apple);
+        Basket basket = new Basket() {{
+            addMany(2, apple);
+        }};
 
         Double discountTotal = discount.calculateTotalForBasket(basket);
 
@@ -42,10 +43,10 @@ public class TestCalculatePerecentOffDiscount {
         Product pear = new Product("pear", 0.75);
         Product grapes = new Product("grapes", 5.0);
         Discount grapesDiscount = new PercentOffDiscount(0.2, grapes);
-        Basket basket = new Basket();
-
-        basket.addMany(3, pear);
-        basket.addMany(2, grapes);
+        Basket basket = new Basket() {{
+            addMany(3, pear);
+            addMany(2, grapes);
+        }};
 
         Double discountTotal = grapesDiscount.calculateTotalForBasket(basket);
 
