@@ -2,6 +2,7 @@ package henrys.grocery;
 
 import henrys.grocery.discounts.Discount;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Store {
@@ -39,7 +40,9 @@ public class Store {
     }
 
     private List<Discount> getActiveDiscounts() {
-        return discounts.stream().filter(Discount::isActive).toList();
+        LocalDate date = LocalDate.now();
+
+        return discounts.stream().filter(discount -> discount.isActive(date)).toList();
     }
 
 }
