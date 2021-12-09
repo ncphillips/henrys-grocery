@@ -2,10 +2,7 @@ package henrys.grocery;
 
 import henrys.grocery.discounts.Discount;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Store {
     ArrayList<Discount> discounts = new ArrayList<>();
@@ -38,7 +35,11 @@ public class Store {
     }
 
     private Double getDiscountToPrice(Basket basket) {
-        return discounts.stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
+        return getActiveDiscounts().stream().map(discount -> discount.calculateTotalForBasket(basket)).reduce(0.0, Double::sum);
+    }
+
+    private List<Discount> getActiveDiscounts() {
+        return discounts.stream().filter(Discount::isActive).toList();
     }
 
 }

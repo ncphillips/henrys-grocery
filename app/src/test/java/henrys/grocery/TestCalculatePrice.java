@@ -6,6 +6,8 @@ import henrys.grocery.discounts.SoupAndBreadComboDiscount;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestCalculatePrice {
@@ -143,5 +145,18 @@ public class TestCalculatePrice {
         assertEquals(expectedPrice, price);
     }
 
+    @Test
+    public void pendingDiscounts() {
+        Double fullPrice = 5.0;
+        Product carrots = new Product("carrots", fullPrice);
+        Basket basket = new Basket();
+        basket.add(carrots);
+        Store store = new Store();
 
+        Discount discount = new PercentOffDiscount(0.5, carrots, LocalDate.now().plusDays(3), null);
+        store.addDiscount(discount);
+        Double price = store.calculateBasketPrice(basket);
+
+        assertEquals(fullPrice, price);
+    }
 }
