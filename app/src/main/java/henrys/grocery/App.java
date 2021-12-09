@@ -3,12 +3,75 @@
  */
 package henrys.grocery;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import henrys.grocery.discounts.Discount;
+import henrys.grocery.discounts.PercentOffDiscount;
+import henrys.grocery.discounts.SoupAndBreadComboDiscount;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        /*
+         * Products
+         */
+        Product soup = new Product("soup", 0.65);
+        Product bread = new Product("bread", 0.80);
+        Product milk = new Product("milk", 1.30);
+        Product apples = new Product("apples", 0.10);
+        List<Product> products = new ArrayList<>() {{
+            add(soup);
+            add(bread);
+            add(milk);
+            add(apples);
+        }};
+
+        /*
+         * Discounts
+         */
+        LocalDate comboStartDate = LocalDate.now().minusDays(1);
+        LocalDate comboEndDate = comboStartDate.plusDays(7);
+        Discount soupAndBread = new SoupAndBreadComboDiscount(soup, bread, comboStartDate, comboEndDate);
+
+        LocalDate appleDiscountStartDate = LocalDate.now().plusDays(3);
+        // https://stackoverflow.com/questions/13624442/getting-last-day-of-the-month-in-a-given-string-date
+        LocalDate appleDiscountEndDate = appleDiscountStartDate.withDayOfMonth(
+                appleDiscountStartDate.getMonth().length(appleDiscountStartDate.isLeapYear())
+        );
+
+        Discount appleDiscount = new PercentOffDiscount(0.10, apples, appleDiscountStartDate, appleDiscountEndDate);
+
+        /*
+         * Store
+         */
+        Store store = new Store();
+        store.addDiscount(soupAndBread);
+        store.addDiscount(appleDiscount);
+
+        /*
+         * Basket
+         */
+        Basket basket = new Basket();
+
+        /*
+         * Command Line Interface
+         */
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Henry's Grocery!");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        products.forEach(product -> {
+            System.out.println("How many " + product.getID() + " ($" + product.getPrice() + ") do you want?");
+
+            int count = scanner.nextInt();
+
+            basket.addMany(count, product);
+        });
+
+        System.out.println("Your total will be: $" + store.calculateBasketPrice(basket));
+        System.out.println("Thank you.");
     }
 }
