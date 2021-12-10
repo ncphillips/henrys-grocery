@@ -15,19 +15,11 @@ Basic pricing
 Discounted pricing
 - [x] No discounts. (Probably just implied by basic pricing.)
 - [x] One active discount that applies to the basket.
-- [ ] One active discount that does NOT apply to the basket.
+- [x] One active discount that does NOT apply to the basket.
 - [x] One pending discount
 - [x] One expired discount
-- [ ] Multiple active discounts
+- [x] Multiple active discounts
 
 Projections
-- [ ] Today
-- [ ] 2 days hence
-- [ ] 5 days hence
-- [ ] 35 days hence
-
-## Other thoughts
-
-- My gut says it would be better if the Discounts asked the Store
-  for the price of a Product, rather than the basket. It's not
-  immediately obvious how to push that change so I'll wait.
+- [x] Today
+- [x] 5 days hence
