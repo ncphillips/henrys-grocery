@@ -10,8 +10,7 @@ public class SoupAndBreadComboDiscount extends Discount {
     Product bread;
 
     public SoupAndBreadComboDiscount(Product soup, Product bread) {
-        this.soup = soup;
-        this.bread = bread;
+        this(soup, bread, null, null);
     }
 
     public SoupAndBreadComboDiscount(Product soup, Product bread, LocalDate startDate, LocalDate endDate) {

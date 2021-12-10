@@ -19,7 +19,6 @@ public class PercentOffDiscount extends Discount {
         this.percentOff = percentOff;
     }
 
-
     @Override
     public Double calculateTotalForBasket(Basket basket) {
         double productCount = basket.getCountOfProduct(product).doubleValue();
